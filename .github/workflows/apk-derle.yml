@@ -11,6 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Kaynak zip dosyasini ac
+        run: |
+          set -e
+          test -f ezanpause-kaynak.zip || { echo "HATA: ezanpause-kaynak.zip dosyasi depoda yok. Once onu yukleyin."; exit 1; }
+          mkdir -p _src
+          unzip -q -o ezanpause-kaynak.zip -d _src
+          P=$(dirname "$(find _src -name settings.gradle | head -1)")
+          echo "PROJE_KLASORU=$P" >> "$GITHUB_ENV"
+          ls -la "$P"
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -24,11 +34,12 @@ jobs:
           gradle-version: "8.9"
 
       - name: APK uret
+        working-directory: ${{ env.PROJE_KLASORU }}
         run: gradle assembleDebug --no-daemon --stacktrace
 
       - name: APK dosyasini yukle
         uses: actions/upload-artifact@v4
         with:
           name: EzanPause-APK
-          path: app/build/outputs/apk/debug/*.apk
+          path: ${{ env.PROJE_KLASORU }}/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
