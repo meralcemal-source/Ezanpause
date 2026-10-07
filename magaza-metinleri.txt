@@ -1,0 +1,24 @@
+UYGULAMA ADI
+EzanPause
+
+KISA AÇIKLAMA (en fazla 80 karakter)
+Ezan vaktinde medya sesini otomatik kapatır, bitince açar.
+
+UZUN AÇIKLAMA
+EzanPause, ezan okunurken telefonunuzdaki müzik ve videoların sesini otomatik olarak kapatır; süre bitince sesi geri açar.
+
+• Sessizlik süresini saniye olarak siz belirlersiniz (örn. 240 sn).
+• Ezandan kaç saniye önce başlayacağını ayarlayabilirsiniz.
+• Sabah, öğle, ikindi, akşam, yatsı ve Perşembe selâsı için ayrı ayrı açıp kapatabilirsiniz.
+• Namaz vakitleri internet olmadan, telefonda hesaplanır (Diyanet ayarlarıyla uyumlu).
+• GPS ile en yakın şehri bulur veya şehri listeden seçersiniz.
+• Çalan müziği duraklatır, bitince devam ettirebilir.
+• Her vakte dokununca kaç rekât olduğunu, sünnet/farz ayrımını, hangi rekâtta ne okunacağını ve duaları (Arapça, okunuş, anlam) görürsünüz.
+• Reklam yok, hesap yok, kişisel veri toplanmaz.
+
+Not: Bazı telefonlarda (Xiaomi, Huawei, Samsung, Oppo) arka planda çalışması için pil kısıtlamasını kapatmanız gerekir; uygulama sizi ilgili ayara yönlendirir.
+
+ALAN BEYANLARI İÇİN KISA GEREKÇE (Play Console)
+Tam zamanlı alarm: Uygulamanın tek amacı, kullanıcının seçtiği ezan vaktinde tam zamanında medya sesini kapatmaktır; birkaç dakikalık kayma uygulamayı işe yaramaz hale getirir.
+Ön plan servisi (özel kullanım): Sessizlik süresi boyunca sesi kısık tutup ses odağını elde tutmak ve kullanıcıya kalan süreyi bildirimle göstermek için.
+Konum: Yalnızca kullanıcı "Konumdan bul" düğmesine bastığında, en yakın şehri seçmek için bir kez okunur; saklanmaz ve paylaşılmaz.

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EzanPause</string>
+    <string name="channel_name">Ezan sessizliği</string>
+    <string name="channel_desc">Ezan sırasında medya sesi kapalıyken gösterilir</string>
+</resources>

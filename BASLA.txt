@@ -1,0 +1,64 @@
+EZANPAUSE – KOD BİLMEDEN YAYINLAMA REHBERİ
+==========================================
+
+Kod yazmanız gerekmiyor. Yapacağınız şey: dosyaları ücretsiz bir siteye (GitHub) yüklemek.
+Site uygulamayı sizin yerinize hazırlayıp indirmeniz için size verir.
+
+----------------------------------------------------------------
+ADIM 1 – Hesap açın (5 dk)
+----------------------------------------------------------------
+1. github.com adresine gidin, "Sign up" ile ücretsiz hesap açın.
+
+----------------------------------------------------------------
+ADIM 2 – Dosyaları yükleyin (10 dk)
+----------------------------------------------------------------
+1. Bu zip dosyasını bilgisayarda "Tümünü ayıkla / Extract" ile klasöre açın.
+2. GitHub'da sağ üstteki "+" işaretine, sonra "New repository"ye tıklayın.
+3. Repository name: ezanpause   (Public veya Private fark etmez)
+   "Create repository" düğmesine basın.
+4. Açılan sayfada "uploading an existing file" bağlantısına tıklayın.
+5. Açtığınız klasörün İÇİNDEKİ her şeyi (app, docs, build.gradle, settings.gradle,
+   gradle.properties, README.md, BASLA.txt ve varsa .github klasörü) tarayıcıya sürükleyip bırakın.
+6. Yükleme bitince aşağıdaki yeşil "Commit changes" düğmesine basın.
+
+----------------------------------------------------------------
+ADIM 3 – Uygulamayı hazırlatın (5–10 dk bekleme)
+----------------------------------------------------------------
+1. Sayfanın üstündeki "Actions" sekmesine tıklayın.
+2. Solda "APK derle" yazısını görüyorsanız ADIM 3.3'e geçin.
+   GÖRMÜYORSANIZ (.github klasörü gizli olduğu için yüklenmemiş olabilir):
+   a) "Code" sekmesine dönün, "Add file" > "Create new file".
+   b) Dosya adı kutusuna aynen şunu yazın:  .github/workflows/apk-derle.yml
+   c) docs klasöründeki "apk-derle-yml.txt" dosyasının İÇİNDEKİ yazının tamamını kopyalayıp
+      büyük metin kutusuna yapıştırın, "Commit changes" deyin. Sonra Actions sekmesine dönün.
+3. "APK derle"ye tıklayın, sağdaki "Run workflow" > yeşil "Run workflow" düğmesine basın.
+4. Sarı daire dönerken bekleyin (yaklaşık 5–10 dk). Yeşil tik olunca bitmiştir.
+5. Yeşil tikli satıra tıklayın, sayfanın en altındaki "Artifacts" bölümünde
+   "EzanPause-APK" dosyasını indirin.
+
+HATA ALIRSANIZ: Kırmızı çarpılı satıra tıklayın, kırmızı hata yazılarını kopyalayıp bana
+yapıştırın; ben düzeltip yeni dosya veririm.
+
+----------------------------------------------------------------
+ADIM 4 – Telefona kurun
+----------------------------------------------------------------
+1. İndirdiğiniz zip'i açın, içindeki .apk dosyasını telefonunuza gönderin (e-posta, WhatsApp, kablo).
+2. Telefonda dosyaya dokunun. "Bilinmeyen kaynaklardan yükleme" izni isterse verin, kurun.
+3. Uygulamayı açın ve sırayla:
+   - "Konumdan bul"a basın veya şehri seçin, "Kaydet"e basın.
+   - Tam zamanlı alarm izni, bildirim izni ve pil kısıtlaması düğmelerine basıp izinleri verin.
+   - "Denemeyi başlat"a basın, müzik açıkken sesin 3 saniye sonra kesildiğini kontrol edin.
+4. Bir iki gün gerçek ezan vakitlerinde deneyin. Sorun olursa bana yazın.
+
+----------------------------------------------------------------
+ADIM 5 – (İsteğe bağlı) Google Play'de yayınlama
+----------------------------------------------------------------
+Önce ADIM 4 sorunsuz çalışmalı. Sonra:
+1. play.google.com/console adresinde geliştirici hesabı açın (tek seferlik yaklaşık 25 $, kimlik doğrulaması gerekir).
+2. Bana "Play için hazırla" yazın: Play'in istediği imzalı dosyayı üreten düzeni ben ekleyeceğim.
+3. Gizlilik politikası sitesi: GitHub'da repo > Settings > Pages > "Deploy from a branch" >
+   branch main, klasör /docs > Save. Adres şöyle olur:
+   https://KULLANICIADINIZ.github.io/ezanpause/gizlilik-politikasi.html
+   Play Console'da bu adresi gizlilik politikası olarak girin.
+4. docs/magaza-metinleri.txt içindeki metinleri ve gerekçeleri Play Console'a yapıştırın.
+5. Yeni hesaplarda Play, yayından önce 12 kişiyle 14 gün kapalı test ister. Tanıdıklarınızı toplayın.
