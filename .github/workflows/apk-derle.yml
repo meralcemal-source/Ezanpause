@@ -20,6 +20,7 @@ jobs:
           P=$(dirname "$(find _src -name settings.gradle | head -1)")
           echo "PROJE_KLASORU=$P" >> "$GITHUB_ENV"
           ls -la "$P"
+          echo "=== BU DERLEMENIN SURUMU ==="; grep -E "versionName|versionCode" "$P/app/build.gradle"
 
       - uses: actions/setup-java@v4
         with:
