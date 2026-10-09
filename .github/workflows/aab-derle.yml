@@ -1,0 +1,76 @@
+name: Play icin AAB derle
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sifreyi kontrol et
+        env:
+          UPLOAD_PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
+        run: |
+          if [ -z "$UPLOAD_PASSWORD" ] || [ ${#UPLOAD_PASSWORD} -lt 10 ]; then
+            echo "HATA: UPLOAD_PASSWORD gizli anahtari yok ya da 10 karakterden kisa. Rehberdeki adimi yapin."; exit 1
+          fi
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Yukleme anahtarini hazirla (yoksa bir kez uretir)
+        env:
+          UPLOAD_PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
+        run: |
+          set -e
+          if [ ! -f upload-keystore.p12 ]; then
+            keytool -genkeypair -storetype PKCS12 -keystore upload-keystore.p12 \
+              -alias upload -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass "$UPLOAD_PASSWORD" -keypass "$UPLOAD_PASSWORD" \
+              -dname "CN=EzanPause, O=EzanPause, C=TR"
+            git config user.name "github-actions"
+            git config user.email "actions@github.com"
+            git add upload-keystore.p12
+            git commit -m "Yukleme anahtari eklendi [skip ci]"
+            git push
+          fi
+
+      - name: Kaynak zip dosyasini ac
+        run: |
+          set -e
+          test -f ezanpause-kaynak.zip || { echo "HATA: ezanpause-kaynak.zip depoda yok."; exit 1; }
+          mkdir -p _src
+          unzip -q -o ezanpause-kaynak.zip -d _src
+          P=$(dirname "$(find _src -name settings.gradle | head -1)")
+          echo "PROJE_KLASORU=$P" >> "$GITHUB_ENV"
+          grep -E "versionName|versionCode" "$P/app/build.gradle"
+
+      - name: Android lisanslarini kabul et
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: AAB uret
+        working-directory: ${{ env.PROJE_KLASORU }}
+        env:
+          UPLOAD_KEYSTORE_FILE: ${{ github.workspace }}/upload-keystore.p12
+          UPLOAD_KEYSTORE_PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
+          UPLOAD_KEY_ALIAS: upload
+          UPLOAD_KEY_PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
+        run: gradle bundleRelease --no-daemon --stacktrace
+
+      - name: AAB dosyasini yukle
+        uses: actions/upload-artifact@v4
+        with:
+          name: EzanPause-AAB
+          path: ${{ env.PROJE_KLASORU }}/app/build/outputs/bundle/release/*.aab
+          if-no-files-found: error
