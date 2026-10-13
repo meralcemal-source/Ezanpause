@@ -36,7 +36,15 @@ jobs:
 
       - name: APK uret
         working-directory: ${{ env.PROJE_KLASORU }}
-        run: gradle assembleDebug --no-daemon --stacktrace
+        run: |
+          set -o pipefail
+          gradle assembleDebug --no-daemon --stacktrace 2>&1 | tee build.log
+          code=${PIPESTATUS[0]}
+          if [ "$code" -ne 0 ]; then
+            MSG=$(grep -E -B1 -A5 'error:|What went wrong|Execution failed|FAILED' build.log | head -45 | sed 's/%/%25/g' | awk '{printf "%s%%0A",$0}')
+            echo "::error title=HATA DETAYI::$MSG"
+            exit "$code"
+          fi
 
       - name: APK dosyasini yukle
         uses: actions/upload-artifact@v4
