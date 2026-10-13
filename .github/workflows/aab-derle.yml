@@ -66,7 +66,15 @@ jobs:
           UPLOAD_KEYSTORE_PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
           UPLOAD_KEY_ALIAS: upload
           UPLOAD_KEY_PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
-        run: gradle bundleRelease --no-daemon --stacktrace
+        run: |
+          set -o pipefail
+          gradle bundleRelease --no-daemon --stacktrace 2>&1 | tee build.log
+          code=${PIPESTATUS[0]}
+          if [ "$code" -ne 0 ]; then
+            MSG=$(grep -E -B1 -A5 'error:|What went wrong|Execution failed|FAILED' build.log | head -45 | sed 's/%/%25/g' | awk '{printf "%s%%0A",$0}')
+            echo "::error title=HATA DETAYI::$MSG"
+            exit "$code"
+          fi
 
       - name: AAB dosyasini yukle
         uses: actions/upload-artifact@v4
